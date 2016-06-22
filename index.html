@@ -1,9 +1,25 @@
-<html>
-    <head>
-        <title>タイトルです！</title>
-        <meta charset='utf-8'>
-    </head>
-    <body>
-        Hello Comeda Coffee!!
-    </body>
+<!DOCTYPE html>
+<html lang="ja" ng-app>
+  <head>
+    <meta charset="utf-8">
+    <title>Angularのテスト！</title>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <script src="./js/channel.js"></script>
+  </head>
+  <body>
+    <!--<input type="text" ng-model="name.name">-->
+    <!--<p>こんにちは！{{name}}</p>
+    <p>こんにちは！{{1+2+3+4+5+6+7+8+9+10}}</p>-->
+    <div ng-controller="mainCtrl">
+      <h1>PeerCast {{channels.length}} channle.</h1>
+      <ul>
+        <li ng-repeat="channel in channels">
+          {{channel.name}} : {{channel.details}}
+        </li>
+        <!--<li ng-repeat="user in users|orderBy:'-score'|filter:name">
+          {{user.name}} : {{user.score|number}}
+        </li>-->
+      </ul>
+    </div>
+  </body>
 </html>
