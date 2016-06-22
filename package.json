@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/shule517/try-electron/issues"
   },
-  "homepage": "https://github.com/shule517/try-electron#readme"
+  "homepage": "https://github.com/shule517/try-electron#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.4"
+  }
 }
