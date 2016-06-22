@@ -1,47 +1,49 @@
-var mainCtrl = function($scope, $http) {
-
-/*
-  $http.get('/api/channels', {})
-    .success(function(data, status, headers, config){
-      console.log(status);
-      $scope.channels = data;
-    })
-    .error(function(data, status, headers, config){
-      console.log(status);
-    });
-*/
+function mainCtrl($scope, $http) {
 
     $scope.channels = [];
-
     $http.get('http://temp.orz.hm/yp/index.txt', {})
-        .success(function(data, status, headers, config) {
+        .success((data, status, headers, config) => {
             console.log('success');
             let lines = data.split('\n');
-            lines.forEach(function(line){
+            lines.forEach((line) => {
                 if (line.length == 0) {
                     return;
                 }
-                var elements = line.split("<>");
-                var channel = {
+                let elements = line.split("<>");
+                let channel = {
                     name:elements[0],
                     id:elements[1],
+                    tip:elements[2],
                     contactUrl:elements[3],
                     genre:elements[4],
                     details:elements[5]
                         .replace("&lt;", "<")
                         .replace("&gt;", ">"),
                     comments:elements[17],
-                    icon:''
+                    icon:'./img/peca.png'
                 };
                 $scope.channels.push(channel);
             });
         })
-        .error(function(data, status, headers, config) {
+        .error((data, status, headers, config) => {
             console.log('error');
         });
 
-    $scope.name = 'シュール';
-    console.log('test');
+    $scope.play = function (channel) {
+        /*
+        exec(path + "/実行ファイルまでのパス", ["オプション"],
+        　　function(err:any, stdout:any, stderr:any){
+        });
+        */
+        const exec = require('child_process').execFile;
+        console.log('play:' + channel.name);
 
-    //   $scope.channels = {name:'シュール'};
+        let streamUrl = 'http://localhost:7146/pls/' + channel.id + '?tip=' + channel.tip + '}';
+        console.log(streamUrl);
+        if (channel.type == 'FLV') {
+            exec('peerstplayer/peerstplayer.exe', [streamUrl, 'FLV', channel.name], (err, stdout, stderr) => console.log('error'));
+        } else {
+            exec('peerstplayer/peerstplayer.exe', [streamUrl, 'WMV', channel.name], (err, stdout, stderr) => console.log('error'));
+        }
+    }
 }

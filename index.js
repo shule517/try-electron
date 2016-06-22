@@ -2,17 +2,17 @@ let electron = require('electron');
 let app = electron.app;
 let BrowserWindow = electron.BrowserWindow;
 
-var mainWindow = null;
+let mainWindow = null;
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
     app.quit();
 });
 
-app.on('ready', function() {
+app.on('ready', () => {
     mainWindow = new BrowserWindow({width:800, height:600});
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.webContents.openDevTools();
-    mainWindow.on('closed', function() {
+    mainWindow.on('closed', () => {
         mainWindow = null;
     });
 });
